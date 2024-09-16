@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <div className="text-primary-600 text-xl m-20">Home</div>
-      <Button className="bg-light-4"> ajouter</Button>
+      <Button className="bg-red"> ajouter</Button>
     </div>
   );
 }
