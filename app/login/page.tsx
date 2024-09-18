@@ -18,11 +18,10 @@ import { useForm } from "react-hook-form";
 import { loginValidation } from "@/lib/validations";
 import Image from "next/image";
 import Loader from "@/components/shared/Loader";
-import { useState } from "react";
 import Link from "next/link";
 
 function Login() {
- const [isLoading,setIsloading]=useState(false)
+ //const [isLoading,setIsloading]=useState(false)
 
   const form = useForm<z.infer<typeof loginValidation>>({
     resolver: zodResolver(loginValidation),
