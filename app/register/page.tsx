@@ -37,7 +37,7 @@ function Register() {
   });
 
   // 2. Define a submit handler.
- async function onSubmit(values: z.infer<typeof loginValidation>) {
+ async function onSubmit(values: z.infer<typeof registerValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
@@ -88,7 +88,7 @@ function Register() {
             />
              <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
@@ -120,7 +120,7 @@ function Register() {
               ):"Register"}
             </Button>
             <p className="text-small-regular text-light-2 text-center">
-              Already have an account? <Link href="/register" className="text-primary-500 text-small-semibold ml-1" > login</Link>
+              Already have an account? <Link href="/login" className="text-primary-500 text-small-semibold ml-1" > login</Link>
             </p>
           </form>
           </div>

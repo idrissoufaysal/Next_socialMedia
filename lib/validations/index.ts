@@ -20,3 +20,4 @@ export const loginValidation = z.object({
     message: "Password must be at least 4 characters.",
   }),
 });
+
