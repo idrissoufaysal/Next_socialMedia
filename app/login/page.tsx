@@ -27,8 +27,6 @@ function Login() {
   const form = useForm<z.infer<typeof loginValidation>>({
     resolver: zodResolver(loginValidation),
     defaultValues: {
-      name: "",
-      username: "",
       email: "",
       password: "",
     },
