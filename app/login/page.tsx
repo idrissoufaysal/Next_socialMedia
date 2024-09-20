@@ -22,6 +22,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 function Login() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading,setIsloading]=useState(false)
 
   const form = useForm<z.infer<typeof loginValidation>>({
@@ -51,7 +52,7 @@ function Login() {
               height={100}
             />
             <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-              Creat a new account
+             Login account
             </h2>
             <p className="text-light-3 small-medium md:base-regular">
               To use snapgram,please enter your details
@@ -105,13 +106,13 @@ function Login() {
                 )}
               </Button>
               <p className="text-small-regular text-light-2 text-center">
-                Already have an account?{" "}
+               {" don't you have an account? "}
                 <Link
                   href="/register"
                   className="text-primary-500 text-small-semibold ml-1"
                 >
                   {" "}
-                  login
+                  sign up
                 </Link>
               </p>
             </form>
