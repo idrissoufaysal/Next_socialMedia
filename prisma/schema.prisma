@@ -46,3 +46,5 @@ model Comment {
   dislikes     Int      @default(0)
   isHighlighted Boolean  @default(false)
   }
+
+  
