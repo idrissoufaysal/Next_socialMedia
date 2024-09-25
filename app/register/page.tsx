@@ -50,7 +50,7 @@ function Register() {
             <Image
               src="/assets/images/logo.svg"
               alt="logo"
-              width={100}
+              width={80}
               height={100}
             />
             <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
