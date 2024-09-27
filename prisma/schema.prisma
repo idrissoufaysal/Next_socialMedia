@@ -16,6 +16,9 @@ datasource db {
 model User {
   id                     String          @id
   username               String          @unique
+  email                  String          @unique
+  password               String          @db.VarChar(128)
+  lastLogin              DateTime?
   avatar                 String?
   cover                  String?
   name                   String?
