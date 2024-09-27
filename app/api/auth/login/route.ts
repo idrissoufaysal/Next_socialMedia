@@ -7,9 +7,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email, password } = req.body;
 
-    const newUser = await prisma.user.create({
-      data: { email: email, password: password },
-    });
+    const newUser = await prisma.user.create({data:{email:}});
 
     res.status(200).json({ success: true });
 
