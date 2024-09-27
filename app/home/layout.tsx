@@ -1,5 +1,5 @@
 import LeftBar from "@/components/shared/leftBar";
-import Navbar from "@/components/shared/navbar";
+import Topbar from "@/components/shared/Topbar";
 
 export default function HomeLayout({
   children,
@@ -8,7 +8,7 @@ export default function HomeLayout({
 }>) {
   return (
     <div className="md:flex w-full h-screen">
-      <Navbar />
+      <Topbar />
       <LeftBar />
       <section className="flex flex-1 h-full">{children}</section>
     </div>
