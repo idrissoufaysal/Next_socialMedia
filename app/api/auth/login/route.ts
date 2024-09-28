@@ -1,13 +1,16 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import { NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextRequest, res: NextApiResponse) {
   try {
-    const { email, password } = req.body;
+    const { email, password } = await req.json();
 
-    const newUser = await prisma.user.create({data:{email:}});
+    const newUser = await prisma.user.create({
+      data: { email: email, password: password },
+    });
 
     res.status(200).json({ success: true });
 
