@@ -8,9 +8,6 @@ export default async function POST(req: NextRequest, res: NextApiResponse) {
   try {
     const { email, password } = await req.json();
 
-    const newUser = await prisma.user.create({
-      data: { email: email, password: password },
-    });
 
     res.status(200).json({ success: true });
 
