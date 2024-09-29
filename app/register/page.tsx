@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { loginValidation, registerValidation } from "@/lib/validations";
+import {registerValidation } from "@/lib/validations";
 import Image from "next/image";
 import Loader from "@/components/shared/Loader";
 import Link from "next/link";
@@ -26,7 +26,7 @@ function Register() {
   const [isLoading, setIsloading] = useState(true);
 
   const form = useForm<z.infer<typeof registerValidation>>({
-    resolver: zodResolver(loginValidation),
+    resolver: zodResolver(registerValidation),
     defaultValues: {
       name: "",
       username: "",
@@ -43,8 +43,8 @@ function Register() {
   }
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
-      <div className="w-1/2 flex flex-col items-center justify-between">
+    <div className="flex justify-center items-center w-screen overflow-y-scroll overflow-x-hidden">
+      <div className="w-1/2 flex flex-col items-center justify-between overflow-x-hidden">
         <Form {...form}>
           <div className="flex-center sm:w-420 flex-col">
             <Image
@@ -52,14 +52,14 @@ function Register() {
               alt="logo"
               width={80}
               height={100}
+              className="mt-3 mr-10"
             />
-            <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+            <h2 className="h3-bold md:h2-bold pt-5 sm:pt-7">
               Creat a new account
             </h2>
             <p className="text-light-3 small-medium md:base-regular">
               To use snapgram,please enter your details
             </p>
-
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-5 w-full mt-4"
@@ -155,9 +155,7 @@ function Register() {
           </div>
         </Form>
       </div>
-      <div className="w-1/2">
-      
-      </div>
+      <div className="w-1/2"></div>
     </div>
   );
 }

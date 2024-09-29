@@ -1,13 +1,23 @@
-import type { NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import { NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
-export default async function POST(req: NextRequest, res: NextApiResponse) {
-  try {
-    const { email, password } = await req.json();
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
+  try {
+    const { email, password } = req.body
+
+    const newUser = await prisma.user.create({
+      data: {
+        email,
+        password,
+      },
+    });
+ 
 
     res.status(200).json({ success: true });
 
