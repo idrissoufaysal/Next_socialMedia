@@ -2,37 +2,49 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 
 import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return NextResponse.json({
+      message: "Methode not allowed",
+    });
   }
-  const { email, password, username, name } = req.body;
+
+  const { email, password, username, name } = await req.json();
   try {
     const existingUser = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email },
     });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: `user ${existingUser.email} alredy exist` });
+      return NextResponse.json({
+        message: "user already exist",
+      });
     }
 
     const hashPass = await bcrypt.hash(password, 10);
 
-     await prisma.user.create({
+    await prisma.user.create({
       data: { email, username, name, password: hashPass },
     });
 
-    res.status(200).json({ success: true });
-
+  return  NextResponse.json({
+      success:true ,
+      message: "user created successfully",
+    },{status:200});
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    console.log(error.message);
+
     if (error.type === "CredentialsSignin") {
-      res.status(401).json({ error: "Invalid credentials." });
+      return NextResponse.json({
+        error: "erreur ..",
+      });
     } else {
-      res.status(500).json({ error: "Something went wrong." });
+      return NextResponse.json({
+        error: error.message,
+      },{status:500});
     }
   }
 }

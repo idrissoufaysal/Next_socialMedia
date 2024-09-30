@@ -1,33 +1,48 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import {jwt} from "jsonwebtoken"
+import { NextRequest, NextResponse } from "next/server";
 
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return NextResponse.json({
+      error: "Method not allowed",
+    });
   }
 
+  const { email, password } = await req.json();
   try {
-    const { email, password } = req.body;
 
-    const newUser = await prisma.user.create({
-      data: {
-        email,
-        password,
-      },
+    const user = await prisma.user.findUnique({ where: {email} });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      throw new Error("Invalid credentials !!!");
+    }
+
+    // Générer un token JWT
+    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
+      expiresIn: "1h",
     });
 
-
-    res.status(200).json({ success: true });
-
+    return NextResponse.json(
+      {
+        message: "user connected successfully",
+        token
+      },
+      { status: 200 }
+    );
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    if (error.type === "CredentialsSignin") {
-      res.status(401).json({ error: "Invalid credentials." });
-    } else {
-      res.status(500).json({ error: "Something went wrong." });
-    }
+    console.log(error.message);
+
+    return NextResponse.json(
+      {
+        error: error.message,
+      },
+      { status: 500 }
+    );
   }
 }
