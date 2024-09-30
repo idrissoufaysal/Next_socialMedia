@@ -1,15 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import {jwt} from "jsonwebtoken"
 
 const prisma = new PrismaClient();
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
+  if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     const newUser = await prisma.user.create({
       data: {
@@ -17,7 +18,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         password,
       },
     });
- 
+
 
     res.status(200).json({ success: true });
 
