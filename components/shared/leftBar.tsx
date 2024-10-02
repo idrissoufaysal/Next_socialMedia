@@ -35,14 +35,15 @@ export default function LeftBar() {
             return (
               <li key={link.label} className="leftsidebar-link">
                 <Link href={link.route} className="flex gap-4 items-center p-4">
-                <Image
-              src={link.imgURL}
-              alt={link.label}
-              width={20}
-              height={10}
-              className=""
-            />
-                {link.label}</Link>
+                  <Image
+                    src={link.imgURL}
+                    alt={link.label}
+                    width={20}
+                    height={10}
+                    className=""
+                  />
+                  {link.label}
+                </Link>
               </li>
             );
           })}
