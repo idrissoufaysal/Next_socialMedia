@@ -23,7 +23,7 @@ import { useState } from "react";
 
 function Register() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoading, setIsloading] = useState(true);
+  const [isLoading, setIsloading] = useState(false);
 
   const form = useForm<z.infer<typeof registerValidation>>({
     resolver: zodResolver(registerValidation),
@@ -43,7 +43,7 @@ function Register() {
   }
 
   return (
-    <div className="flex justify-center items-center w-screen overflow-y-scroll overflow-x-hidden">
+    <div className="flex justify-center items-center overflow-x-hidden">
       <div className="w-1/2 flex flex-col items-center justify-between overflow-x-hidden">
         <Form {...form}>
           <div className="flex-center sm:w-420 flex-col">

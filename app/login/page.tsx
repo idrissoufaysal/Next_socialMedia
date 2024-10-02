@@ -102,7 +102,7 @@ function Login() {
                     <Loader /> Loading
                   </div>
                 ) : (
-                  "Register"
+                  "Login"
                 )}
               </Button>
               <p className="text-small-regular text-light-2 text-center">
