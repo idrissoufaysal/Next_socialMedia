@@ -5,7 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
 export default function LeftBar() {
+  const location = usePathname();
+  console.log(location);
+  
+
   return (
     <nav className="leftsidebar ">
       <div className="flex flex-col gap-11">

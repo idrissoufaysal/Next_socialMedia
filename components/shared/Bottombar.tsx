@@ -1,10 +1,16 @@
+"use client"
 import { bottombarLinks } from '@/app/constants';
 import { INavLink } from '@/app/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react'
 
 export default function Bottombar() {
+  const location = usePathname();
+  console.log(location);
+  
+
   return (
 
     <section className='bottom-bar'>
