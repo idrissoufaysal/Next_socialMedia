@@ -7,8 +7,8 @@ import React from "react";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 export default function LeftBar() {
-  const location = usePathname();
-  console.log(location);
+  const pathname = usePathname();
+  console.log(pathname);
   
 
   return (
@@ -38,15 +38,16 @@ export default function LeftBar() {
         </Link>
         <ul className="flex flex-col gap-6">
           {sidebarLinks.map((link: INavLink) => {
+            const isActive=pathname===link.route
             return (
-              <li key={link.label} className={`leftsidebar-link`}>
+              <li key={link.label} className={`leftsidebar-link group ${isActive && 'bg-primary-500'}`}>
                 <Link href={link.route} className="flex gap-4 items-center p-4">
                   <Image
                     src={link.imgURL}
                     alt={link.label}
                     width={20}
                     height={10}
-                    className="group-hover:invert-white"
+                    className={`group-hover:invert-white ${isActive && 'invert-white'}`}
                   />
                   {link.label}
                 </Link>
