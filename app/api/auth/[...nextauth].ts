@@ -9,4 +9,6 @@ export const authConfig = {
   adapter: PrismaAdapter(prisma),
 } satisfies NextAuthOptions;
 
+
 export default nextAuth(authConfig);
+

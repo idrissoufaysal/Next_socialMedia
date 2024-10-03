@@ -1,3 +1,4 @@
+import Bottombar from "@/components/shared/Bottombar";
 import LeftBar from "@/components/shared/leftBar";
 import Topbar from "@/components/shared/Topbar";
 
@@ -11,6 +12,7 @@ export default function HomeLayout({
       <Topbar />
       <LeftBar />
       <section className="flex flex-1 h-full">{children}</section>
+      <Bottombar/>
     </div>
   );
 }

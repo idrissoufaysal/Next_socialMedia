@@ -1,19 +1,20 @@
+"use client";
 import { sidebarLinks } from "@/app/constants";
 import { INavLink } from "@/app/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import { Button } from "../ui/button";
 export default function LeftBar() {
   return (
-    <nav className="leftsidebar">
+    <nav className="leftsidebar ">
       <div className="flex flex-col gap-11">
         <Link href="/" className="flex gap-3 items-center">
           <Image
             src="assets/images/logo.svg"
             alt="logo"
             width={170}
-            height={320}
+            height={36}
           />
         </Link>
 
@@ -33,14 +34,14 @@ export default function LeftBar() {
         <ul className="flex flex-col gap-6">
           {sidebarLinks.map((link: INavLink) => {
             return (
-              <li key={link.label} className="leftsidebar-link">
+              <li key={link.label} className={`leftsidebar-link`}>
                 <Link href={link.route} className="flex gap-4 items-center p-4">
                   <Image
                     src={link.imgURL}
                     alt={link.label}
                     width={20}
                     height={10}
-                    className=""
+                    className="group-hover:invert-white"
                   />
                   {link.label}
                 </Link>
@@ -49,6 +50,21 @@ export default function LeftBar() {
           })}
         </ul>
       </div>
+      <Button
+        variant="ghost"
+        className="shad-button_ghost"
+        onClick={() => {
+          console.log("logoutUser");
+        }}
+      >
+        <Image
+          src="assets/icons/logout.svg"
+          alt="logout"
+          width={20}
+          height={30}
+        />
+        <p className="small-medium lg:base-medium">Logout</p>
+      </Button>
     </nav>
   );
 }
