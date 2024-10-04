@@ -13,7 +13,7 @@ export default function LeftBar() {
 
   return (
     <nav className="leftsidebar ">
-      <div className="flex flex-col gap-11">
+      <div className="flex flex-col gap-7">
         <Link href="/" className="flex gap-3 items-center">
           <Image
             src="assets/images/logo.svg"
@@ -36,12 +36,12 @@ export default function LeftBar() {
             <p className="small-regular text-light-3">{`@$username`}</p>
           </div>
         </Link>
-        <ul className="flex flex-col gap-6">
+        <ul className="flex flex-col gap-3">
           {sidebarLinks.map((link: INavLink) => {
             const isActive=pathname===link.route
             return (
               <li key={link.label} className={`leftsidebar-link group ${isActive && 'bg-primary-500'}`}>
-                <Link href={link.route} className="flex gap-4 items-center p-4">
+                <Link href={link.route} className="flex gap-4 items-center py-3 px-4">
                   <Image
                     src={link.imgURL}
                     alt={link.label}
@@ -58,7 +58,7 @@ export default function LeftBar() {
       </div>
       <Button
         variant="ghost"
-        className="shad-button_ghost"
+        className="shad-button_ghost mt-10"
         onClick={() => {
           console.log("logoutUser");
         }}
