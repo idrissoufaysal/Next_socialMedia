@@ -7,6 +7,13 @@ import prisma from "@/lib/prisma";
 import nextAuth from "next-auth";
 
 export const authConfig = {
+  session: {
+    strategy: "jwt",
+  },
+
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -23,16 +30,12 @@ export const authConfig = {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { email, password } = credentials;
 
-        // const existingUser = prisma.user.findUnique({ where: { email:email } });
-        // if (!existingUser) {
-        //   throw new Error("user does not exist");
+        const existingUser = prisma.user.findUnique({ where: { email:email } });
+        if (!existingUser) {
+          throw new Error("user does not exist");
+          
 
-        // Implémente ta logique d'authentification ici
-        const res = await fetch("https://localhost:3000/api/auth/login", {
-          method: 'POST',
-          body: JSON.stringify(email, password),
-          headers: { "Content-Type": "application/json" }
-        });
+        
 
         const user = await res.json();
 

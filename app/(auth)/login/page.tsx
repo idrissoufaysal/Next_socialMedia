@@ -1,6 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { signIn } from "next-auth/react";
 
 import { z } from "zod";
 

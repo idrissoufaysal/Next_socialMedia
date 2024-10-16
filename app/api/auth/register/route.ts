@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { registerValidation } from "@/lib/validations";
 import bcrypt from "bcrypt";
 
 import { NextRequest, NextResponse } from "next/server";
@@ -10,10 +11,12 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const { email, password, username, name } = await req.json();
+  const body = await req.json();
+  const data = registerValidation.parse(body)
+
   try {
     const existingUser = await prisma.user.findUnique({
-      where: { email },
+      where: { email: data.email },
     });
 
     if (existingUser) {
@@ -22,16 +25,16 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const hashPass = await bcrypt.hash(password, 10);
-    
+    const hashPass = await bcrypt.hash(data.password, 10);
+
     await prisma.user.create({
-      data: { email, username, name,password:hashPass},
+      data: { email: data.email, username: data.username, name: data.name, password: hashPass },
     });
 
-  return  NextResponse.json({
-      success:true ,
+    return NextResponse.json({
+      success: true,
       message: "user created successfully",
-    },{status:200});
+    }, { status: 200 });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error.message);
@@ -43,7 +46,7 @@ export async function POST(req: NextRequest) {
     } else {
       return NextResponse.json({
         error: error.message,
-      },{status:500});
+      }, { status: 500 });
     }
   }
 }
