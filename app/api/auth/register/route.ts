@@ -3,6 +3,7 @@ import { registerValidation } from "@/lib/validations";
 import bcrypt from "bcrypt";
 
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export async function POST(req: NextRequest) {
   if (req.method !== "POST") {
@@ -34,6 +35,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "user created successfully",
+      
     }, { status: 200 });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -43,7 +45,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         error: "erreur ..",
       });
-    } else {
+
+    }
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ errors: error.errors }, { status: 400 });
+    }
+    else {
       return NextResponse.json({
         error: error.message,
       }, { status: 500 });
