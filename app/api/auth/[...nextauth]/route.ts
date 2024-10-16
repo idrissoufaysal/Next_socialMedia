@@ -18,7 +18,7 @@ export const authConfig = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { email, password } = credentials;
@@ -26,17 +26,17 @@ export const authConfig = {
         // const existingUser = prisma.user.findUnique({ where: { email:email } });
         // if (!existingUser) {
         //   throw new Error("user does not exist");
-        
+
         // Implémente ta logique d'authentification ici
         const res = await fetch("https://localhost:3000/api/auth/login", {
           method: 'POST',
-          body: JSON.stringify(credentials),
+          body: JSON.stringify(email, password),
           headers: { "Content-Type": "application/json" }
         });
 
         const user = await res.json();
 
-      //  Retourner l'utilisateur si les identifiants sont corrects
+        //  Retourner l'utilisateur si les identifiants sont corrects
         if (res.ok && user) {
           return user;
         }
