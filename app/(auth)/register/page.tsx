@@ -172,7 +172,7 @@ function Register() {
                   href="/login"
                   className="text-primary-500 text-small-semibold ml-1"
                 >
-                  {" "}
+                  
                   login
                 </Link>
               </p>
