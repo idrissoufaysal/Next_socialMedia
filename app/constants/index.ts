@@ -48,3 +48,5 @@ export const sidebarLinks = [
       label: "Create",
     },
   ];
+
+  export const apiUrl="http://localhost:3000/api"
