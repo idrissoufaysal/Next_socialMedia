@@ -23,7 +23,7 @@ import Loader from "@/components/shared/Loader";
 import Link from "next/link";
 import { useState } from "react";
 import { apiUrl } from "@/app/constants";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function Login() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -41,16 +41,7 @@ function Login() {
   async function onSubmit(values: z.infer<typeof loginValidation>) {
     console.log(values);
     try {
-      const res = await fetch(`${apiUrl}/auth/register`,
-        {
-          method: "POST",
-          body: JSON.stringify(values),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-
-      )
+           
 
       if (res.ok) router.push("/login")
     } catch (error) {

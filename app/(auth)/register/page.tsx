@@ -20,7 +20,7 @@ import Loader from "@/components/shared/Loader";
 import Link from "next/link";
 import { useState } from "react";
 import { apiUrl } from "@/app/constants";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function Register() {
   const router = useRouter();
