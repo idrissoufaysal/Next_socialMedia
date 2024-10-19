@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
@@ -24,9 +23,8 @@ import { apiUrl } from "@/app/constants";
 import { useRouter } from "next/router";
 
 function Register() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const router = useRouter();
   const [isLoading, setIsloading] = useState(false);
-  const router = useRouter()
   const form = useForm<z.infer<typeof registerValidation>>({
     resolver: zodResolver(registerValidation),
     defaultValues: {
@@ -42,6 +40,7 @@ function Register() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    setIsloading(true)
     try {
       const res = await fetch(`${apiUrl}/auth/register`,
         {
@@ -56,6 +55,7 @@ function Register() {
       console.log(res);
 
       if (res.ok) {
+        setIsloading(false)
         router.push("/login")
       }
     } catch (error) {
