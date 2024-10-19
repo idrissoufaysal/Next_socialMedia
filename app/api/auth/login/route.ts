@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
+import { loginValidation } from "@/lib/validations";
+import { z } from "zod";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
@@ -12,29 +14,22 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const { email, password } = await req.json();
+  const body = await req.json();
+  const data = loginValidation.parse(body)
   try {
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({ where: { email: data.email } });
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user || !(await bcrypt.compare(data.password, user.password))) {
       throw new Error("Invalid credentials !!!");
     }
 
-    // Générer un token JWT
-    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    return NextResponse.json(
-      {
-        token: token,
-        user: user,
-      },
-      { status: 200 }
-    );
+    return NextResponse.json(user, { status: 200 });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error.message);
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ errors: error.errors }, { status: 400 });
+    }
 
     return NextResponse.json(
       {

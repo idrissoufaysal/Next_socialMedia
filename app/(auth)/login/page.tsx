@@ -22,7 +22,6 @@ import Image from "next/image";
 import Loader from "@/components/shared/Loader";
 import Link from "next/link";
 import { useState } from "react";
-import { apiUrl } from "@/app/constants";
 import { useRouter } from "next/navigation";
 
 function Login() {
@@ -43,7 +42,6 @@ function Login() {
     try {
            
 
-      if (res.ok) router.push("/login")
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
