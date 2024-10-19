@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
 import { loginValidation } from "@/lib/validations";
 import { z } from "zod";
-
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 export async function POST(req: NextRequest) {
   if (req.method !== "POST") {

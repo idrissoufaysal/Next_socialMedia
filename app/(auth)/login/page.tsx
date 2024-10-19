@@ -22,12 +22,10 @@ import Image from "next/image";
 import Loader from "@/components/shared/Loader";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 function Login() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading, setIsloading] = useState(false)
-  const router = useRouter()
   const form = useForm<z.infer<typeof loginValidation>>({
     resolver: zodResolver(loginValidation),
     defaultValues: {
