@@ -15,16 +15,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import {registerValidation } from "@/lib/validations";
+import { registerValidation } from "@/lib/validations";
 import Image from "next/image";
 import Loader from "@/components/shared/Loader";
 import Link from "next/link";
 import { useState } from "react";
+import { apiUrl } from "@/app/constants";
+import { useRouter } from "next/router";
 
 function Register() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading, setIsloading] = useState(false);
-
+  const router = useRouter()
   const form = useForm<z.infer<typeof registerValidation>>({
     resolver: zodResolver(registerValidation),
     defaultValues: {
@@ -40,6 +42,29 @@ function Register() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    try {
+      const res = await fetch(`${apiUrl}/auth/register`,
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+
+      )
+      console.log(res);
+
+      if (res.ok) {
+        router.push("/login")
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+
+      }
+      console.log(error);
+    }
   }
 
   return (

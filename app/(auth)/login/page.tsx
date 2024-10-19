@@ -23,11 +23,12 @@ import Loader from "@/components/shared/Loader";
 import Link from "next/link";
 import { useState } from "react";
 import { apiUrl } from "@/app/constants";
+import { useRouter } from "next/router";
 
 function Login() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoading,setIsloading]=useState(false)
-
+  const [isLoading, setIsloading] = useState(false)
+  const router = useRouter()
   const form = useForm<z.infer<typeof loginValidation>>({
     resolver: zodResolver(loginValidation),
     defaultValues: {
@@ -39,7 +40,27 @@ function Login() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof loginValidation>) {
     console.log(values);
-    fetch(`${apiUrl}/`)
+    try {
+      const res = await fetch(`${apiUrl}/auth/register`,
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+
+      )
+
+      if (res.ok) router.push("/login")
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+
+      }
+      console.log(error);
+
+    }
   }
 
   return (
@@ -54,7 +75,7 @@ function Login() {
               height={100}
             />
             <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-             Login account
+              Login account
             </h2>
             <p className="text-light-3 small-medium md:base-regular">
               To use snapgram,please enter your details
@@ -108,7 +129,7 @@ function Login() {
                 )}
               </Button>
               <p className="text-small-regular text-light-2 text-center">
-               {" don't you have an account? "}
+                {" don't you have an account? "}
                 <Link
                   href="/register"
                   className="text-primary-500 text-small-semibold ml-1"
