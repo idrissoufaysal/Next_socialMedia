@@ -27,6 +27,8 @@ import { apiUrl } from "@/app/constants";
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        
+
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const res = await fetch(`${apiUrl}/auth/login`, {
@@ -37,8 +39,10 @@ import { apiUrl } from "@/app/constants";
               password: credentials?.password
             }),
           headers: { "Content-Type": "application/json" },
-
         })
+
+
+
         const user = await res.json()
         //  Retourner l'utilisateur si les identifiants sont corrects
         if (res.ok && user) {
