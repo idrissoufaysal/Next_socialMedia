@@ -6,7 +6,6 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import nextAuth from "next-auth";
 import { apiUrl } from "@/app/constants";
-import { JWT } from "next-auth/jwt";
 
 export const authConfig = {
   session: {
@@ -57,12 +56,9 @@ export const authConfig = {
       }
       return token
     },
-    session: async ({ session, token }: { session: DefaultSession, token: JWT }) => {
-      if (session && session.user && typeof session.user.id !== 'undefined') {
-        session.user.id = token.sub;
-      }
+    async session({ session }) {
       return session;
-    }
+    },
   },
 
   secret: process.env.AUTH_SECRET,

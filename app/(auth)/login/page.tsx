@@ -22,10 +22,14 @@ import Image from "next/image";
 import Loader from "@/components/shared/Loader";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function Login() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading, setIsloading] = useState(false)
+
+  const [errorMessage, setErrorMessage] = useState<string>("")
+  const router = useRouter()
   const form = useForm<z.infer<typeof loginValidation>>({
     resolver: zodResolver(loginValidation),
     defaultValues: {
@@ -37,16 +41,23 @@ function Login() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof loginValidation>) {
     console.log(values);
+    setIsloading(true)
     try {
-           
-
+      const result = await signIn('credentials', {
+        redirect: false, // Désactive la redirection automatique
+        email: values.email,
+        password: values.password,
+      });
+      setIsloading(false)
+      if (result?.error) {
+        setErrorMessage(result?.error)
+      }
+      router.push("/")
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
-
       }
       console.log(error);
-
     }
   }
 
@@ -121,10 +132,13 @@ function Login() {
                   href="/register"
                   className="text-primary-500 text-small-semibold ml-1"
                 >
-                  {" "}
                   sign up
                 </Link>
               </p>
+              {errorMessage && <span className="text-red text-xl">
+                {errorMessage}
+              </span>
+              }
             </form>
           </div>
         </Form>
