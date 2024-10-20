@@ -1,11 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { DefaultSession, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import nextAuth from "next-auth";
 import { apiUrl } from "@/app/constants";
+import { JWT } from "next-auth/jwt";
 
 export const authConfig = {
   session: {
@@ -50,20 +51,18 @@ export const authConfig = {
     ),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    jwt: async ({ token, user }) => {
       if (user) {
-        token.id = user.id;
-        token.email = user.email;
+        token.id = user.id
       }
-      return token;
+      return token
     },
-    async session({ session, token }) {
-      if (token) {
-        session.id = token.id;
-        session.email = token.email;
+    session: async ({ session, token }: { session: DefaultSession, token: JWT }) => {
+      if (session && session.user && typeof session.user.id !== 'undefined') {
+        session.user.id = token.sub;
       }
       return session;
-    },
+    }
   },
 
   secret: process.env.AUTH_SECRET,
