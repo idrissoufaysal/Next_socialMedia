@@ -42,12 +42,15 @@ function Login() {
   async function onSubmit(values: z.infer<typeof loginValidation>) {
     console.log(values);
     setIsloading(true)
+
     try {
       const result = await signIn('credentials', {
         redirect: false, // Désactive la redirection automatique
         email: values.email,
         password: values.password,
       });
+      console.log(result);
+      
       setIsloading(false)
       if (result?.error) {
         setErrorMessage(result?.error)

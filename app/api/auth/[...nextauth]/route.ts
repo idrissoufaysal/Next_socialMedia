@@ -29,7 +29,7 @@ export const authConfig = {
       async authorize(credentials) {
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const res = await fetch(`${apiUrl}/login`, {
+        const res = await fetch(`${apiUrl}/auth/login`, {
           method: "POST",
           body: JSON.stringify(
             {
