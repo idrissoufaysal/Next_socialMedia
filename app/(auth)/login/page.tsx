@@ -43,25 +43,19 @@ function Login() {
     console.log(values);
     setIsloading(true)
 
-    try {
-      const result = await signIn('credentials', {
-        redirect: false, // Désactive la redirection automatique
-        email: values.email,
-        password: values.password,
-      });
-      console.log(result);
-      
-      setIsloading(false)
-      if (result?.error) {
-        setErrorMessage(result?.error)
-      }
-      router.push("/")
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-      }
-      console.log(error);
+    const result = await signIn('credentials', {
+      redirect: false, // Désactive la redirection automatique
+      email: values.email,
+      password: values.password,
+    });
+    console.log(result);
+
+    setIsloading(false)
+    if (result?.error) {
+      setErrorMessage(result?.error)
     }
+    router.push("/")
+
   }
 
   return (

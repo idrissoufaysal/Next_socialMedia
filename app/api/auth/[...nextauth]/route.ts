@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 import nextAuth from "next-auth";
 import { apiUrl } from "@/app/constants";
 
-export const authConfig = {
+ const authConfig = {
   session: {
     strategy: "jwt",
   },
