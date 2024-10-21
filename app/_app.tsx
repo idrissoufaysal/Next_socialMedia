@@ -1,7 +1,9 @@
-// app/_app.tsx ou pages/_app.tsx
 import { SessionProvider } from "next-auth/react";
+import { AppProps } from "next/app";
 
-export default function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+// Typage et fonction principale `App`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps & { pageProps: { session: any } }) {
   return (
     <SessionProvider session={session}>
       <Component {...pageProps} />

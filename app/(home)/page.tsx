@@ -1,18 +1,28 @@
-"use client"
+"use client";
 import Loader from "@/components/shared/Loader";
-import { useSession } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import React from "react";
 
 export default function HomePage() {
+  
+     
+  return (
+    <SessionProvider>
+      <Page/>
+    </SessionProvider>
+    
+  );
+}
+
+
+
+  const  Page=() =>{
   const {data:session}=useSession()
   const isPostLoading = false;
   const posts = null;
 
   console.log(session?.user);
-  
-
   return (
-    
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-posts">
@@ -24,5 +34,5 @@ export default function HomePage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
