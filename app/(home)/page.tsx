@@ -1,29 +1,26 @@
 "use client"
 import Loader from "@/components/shared/Loader";
 import { useSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function HomePage() {
-  const { data: session } = useSession();
-
+  const {data:session}=useSession()
   const isPostLoading = false;
   const posts = null;
 
-  useEffect(() => {
-    if (session) {
-      console.log(session.user?.email)
-    }
-  }, [session])
+  console.log(session?.user);
+  
 
   return (
+    
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-posts">
           <h2 className="h3-bold md:h2-bold text-left w-full"> Home Feed</h2>
-          {isPostLoading && !posts ? <Loader /> :
-            <ul className="flex flex-1 flex-col gap-9  w-full">
-              Text
-            </ul>}
+          {isPostLoading && !posts ? <Loader /> : 
+          <ul className="flex flex-1 flex-col gap-9  w-full">
+            {session?.user?.email}
+             </ul>}
         </div>
       </div>
     </div>
