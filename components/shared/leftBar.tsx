@@ -6,9 +6,14 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 export default function LeftBar() {
   const pathname = usePathname();
   console.log(pathname);
+
+  const handleLogout=()=>{
+    signOut({ callbackUrl: "/login" }); // Redirige l'utilisateur vers la page d'accueil après la déconnexion
+  }
   
 
   return (
@@ -59,9 +64,7 @@ export default function LeftBar() {
       <Button
         variant="ghost"
         className="shad-button_ghost mt-10"
-        onClick={() => {
-          console.log("logoutUser");
-        }}
+       onClick={handleLogout}
       >
         <Image
           src="assets/icons/logout.svg"

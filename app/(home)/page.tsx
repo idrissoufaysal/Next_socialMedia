@@ -1,23 +1,23 @@
 "use client";
 import Loader from "@/components/shared/Loader";
+import { useUser } from "@/hooks/useUser";
 import { SessionProvider, useSession } from "next-auth/react";
 import React from "react";
 
 export default function HomePage() {
-  
-     
   return (
     <SessionProvider>
-      <Page/>
+      <Page />
     </SessionProvider>
-    
+
   );
 }
 
 
 
-  const  Page=() =>{
-  const {data:session}=useSession()
+const Page = () => {
+  const { data: session } = useSession()
+  const { user } = useUser()
   const isPostLoading = false;
   const posts = null;
 
@@ -27,10 +27,13 @@ export default function HomePage() {
       <div className="home-container">
         <div className="home-posts">
           <h2 className="h3-bold md:h2-bold text-left w-full"> Home Feed</h2>
-          {isPostLoading && !posts ? <Loader /> : 
-          <ul className="flex flex-1 flex-col gap-9  w-full">
-            {session?.user?.email}
-             </ul>}
+          {isPostLoading && !posts ? <Loader /> :
+            <ul className="flex flex-1 flex-col gap-9  w-full">
+              {session?.user?.email}
+              {user?.email}
+              {user?.username}
+
+            </ul>}
         </div>
       </div>
     </div>
