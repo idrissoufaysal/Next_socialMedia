@@ -30,9 +30,6 @@ const Page = () => {
           {isPostLoading && !posts ? <Loader /> :
             <ul className="flex flex-1 flex-col gap-9  w-full">
               {session?.user?.email}
-              {user?.email}
-              {user?.username}
-
             </ul>}
         </div>
       </div>

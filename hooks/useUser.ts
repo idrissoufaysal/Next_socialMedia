@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export const useUser = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<any>();
     const { data: session } = useSession();
     const router = useRouter();
 
