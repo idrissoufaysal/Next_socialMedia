@@ -43,19 +43,38 @@ function Login() {
     console.log(values);
     setIsloading(true)
 
-    const result = await signIn('credentials', {
-      redirect: false, // Désactive la redirection automatique
-      email: values.email,
-      password: values.password,
-    });
-    console.log(result);
+    try {
+      // const res = await fetch(`${apiUrl}/auth/login`, {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     email: values?.email,
+      //     password: values?.password,
+      //   }),
+      //   headers: { "Content-Type": "application/json" },
+      // });
 
-    setIsloading(false)
-    if (result?.error) {
-      setErrorMessage(result?.error)
+      // const response = await res.json();
+      // console.log(response);
+
+      const result = await signIn('credentials', {
+        redirect: false, // Désactive la redirection automatique
+        email: values.email,
+        password: values.password,
+      });
+      
+      console.log(result);
+
+      setIsloading(false)
+      if (result?.error) {
+        setErrorMessage(result?.error)
+      }
+      router.push("/")
+
+    } catch (error) {
+      console.log(error);
+
+
     }
-    router.push("/")
-
   }
 
   return (
