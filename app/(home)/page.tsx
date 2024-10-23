@@ -1,5 +1,6 @@
 "use client";
 import Loader from "@/components/shared/Loader";
+import { useUser } from "@/hooks/useUser";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -14,11 +15,9 @@ export default function HomePage() {
 }
 
 const Page = () => {
-  const { data: session } = useSession()
-  const router = useRouter()
+  const {user}=useUser()
   const isPostLoading = false;
   const posts = null;
-  console.log(session);
   
   return (
     <div className="flex flex-1">
@@ -28,11 +27,11 @@ const Page = () => {
           {isPostLoading && !posts ? <Loader /> :
             <ul className="flex flex-1 flex-col gap-9  w-full">
               <div>
-                {session?.user?.email}
+                {user?.email}
               </div>
-              <li> {session?.user?.name}</li>
-              <li>{session?.user?.id}</li>
-              <li>username {session?.user?.username}</li>
+              <li> {user?.name}</li>
+              <li>{user?.id}</li>
+              <li>username {user?.username}</li>
             </ul>}
         </div>
       </div>
