@@ -13,17 +13,13 @@ export default function HomePage() {
   );
 }
 
-
-
 const Page = () => {
   const { data: session } = useSession()
   const router = useRouter()
   const isPostLoading = false;
   const posts = null;
-
-
-
-  // console.log(session?.user);
+  console.log(session);
+  
   return (
     <div className="flex flex-1">
       <div className="home-container">
@@ -33,11 +29,10 @@ const Page = () => {
             <ul className="flex flex-1 flex-col gap-9  w-full">
               <div>
                 {session?.user?.email}
-
               </div>
-              {session?.user?.name}
-              {session?.user?.username}
-
+              <li> {session?.user?.name}</li>
+              <li>{session?.user?.id}</li>
+              <li>username {session?.user?.username}</li>
             </ul>}
         </div>
       </div>
