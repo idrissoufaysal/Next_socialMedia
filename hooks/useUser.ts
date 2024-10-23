@@ -1,31 +1,34 @@
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { User } from "@/app/types";
 
 export const useUser = () => {
-    const [user, setUser] = useState<any>();
-    const { data: session } = useSession();
-    const router = useRouter();
+    const [user, setUser] = useState<User>();
+    const [isAuth, setIsAuth] = useState(false)
+
 
     useEffect(() => {
         const fetchUser = async () => {
-            if (!session) {
-                router.push("/login");
-                return;
-            }
 
-            const response = await fetch(`/api/user?email=${session.user?.email}`);
+            const response = await fetch(`/api/auth/user`);
             const existingUser = await response.json();
-
+            console.log(response);
+            console.log(existingUser);
+            if(!existingUser.ok){
+                setIsAuth(false)
+            }
+            
             if (existingUser) {
                 setUser(existingUser);
+                setIsAuth(true)
             }
         };
 
         fetchUser();
-    }, [session, router]);
+    }, []);
 
     return {
         user,
+        isAuth
     };
 };

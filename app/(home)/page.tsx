@@ -2,7 +2,8 @@
 import Loader from "@/components/shared/Loader";
 import { useUser } from "@/hooks/useUser";
 import { SessionProvider, useSession } from "next-auth/react";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 export default function HomePage() {
   return (
@@ -16,12 +17,19 @@ export default function HomePage() {
 
 
 const Page = () => {
-  const { data: session } = useSession()
-  const { user } = useUser()
+  // const { data: session } = useSession()
+  const { user, isAuth } = useUser()
+  const router = useRouter()
   const isPostLoading = false;
   const posts = null;
 
-  console.log(session?.user);
+  useEffect(() => {
+    if (!isAuth) {
+      router.push("/login")
+    }
+  }, [isAuth, router])
+
+  // console.log(session?.user);
   return (
     <div className="flex flex-1">
       <div className="home-container">
@@ -29,7 +37,8 @@ const Page = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full"> Home Feed</h2>
           {isPostLoading && !posts ? <Loader /> :
             <ul className="flex flex-1 flex-col gap-9  w-full">
-              {session?.user?.email}
+              {/* {session?.user?.email} */}
+              {user?.name}
             </ul>}
         </div>
       </div>

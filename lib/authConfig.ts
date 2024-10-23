@@ -44,7 +44,6 @@ export const authConfig: NextAuthOptions = {
       return token;
     },
     async session({ session }) {
-     
       return session;
     },
   },
