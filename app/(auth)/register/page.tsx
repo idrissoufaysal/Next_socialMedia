@@ -2,6 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
+import axios, { AxiosError } from "axios"
 
 import { Button } from "@/components/ui/button";
 import {
@@ -42,28 +43,22 @@ function Register() {
     console.log(values);
     setIsloading(true)
     try {
-      const res = await fetch(`${apiUrl}/auth/register`,
-        {
-          method: "POST",
-          body: JSON.stringify(values),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+      const res = await axios.post(`${apiUrl}/auth/register`, {values})
+      console.log(res.data);
 
-      )
-      console.log(res);
-
-      if (res.ok) {
+      if (res.status==200) {
         setIsloading(false)
         router.push("/login")
       }
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
-
       }
-      console.log(error);
+      if(error instanceof AxiosError)
+      console.log(error.response?.data);
+    }
+    finally {
+      setIsloading(false);
     }
   }
 
@@ -172,7 +167,7 @@ function Register() {
                   href="/login"
                   className="text-primary-500 text-small-semibold ml-1"
                 >
-                  
+
                   login
                 </Link>
               </p>

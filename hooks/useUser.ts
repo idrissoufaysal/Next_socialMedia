@@ -14,10 +14,10 @@ export const useUser = () => {
             const existingUser = await response.json();
             console.log(response);
             console.log(existingUser);
-            if(!existingUser.ok){
+            if (!existingUser.ok) {
                 setIsAuth(false)
             }
-            
+
             if (existingUser) {
                 setUser(existingUser);
                 setIsAuth(true)

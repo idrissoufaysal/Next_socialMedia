@@ -28,7 +28,7 @@ export const authConfig: NextAuthOptions = {
           }),
         });
         const user = await res.json();
-        
+
         if (res.ok && user) {
           return user;
         }
@@ -40,11 +40,13 @@ export const authConfig: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+
       }
       return token;
     },
     async session({ session }) {
       return session;
+
     },
   },
   secret: process.env.AUTH_SECRET,
