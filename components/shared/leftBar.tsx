@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 export default function LeftBar() {
   const pathname = usePathname();
+  //const {user}=useUser()
   console.log(pathname);
 
   const handleLogout=()=>{
@@ -38,7 +39,7 @@ export default function LeftBar() {
           />
           <div className="flex flex-col">
             <p className="body-bold">JsMastery</p>
-            <p className="small-regular text-light-3">{`@$username`}</p>
+            <p className="small-regular text-light-3">{`@username`}</p>
           </div>
         </Link>
         <ul className="flex flex-col gap-3">

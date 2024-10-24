@@ -67,7 +67,9 @@ function Login() {
       if (result?.error) {
         setErrorMessage(result?.error)
       }
-      router.push("/")
+      if (result?.ok) {
+        router.push("/")
+      }
 
     } catch (error) {
       console.log(error);

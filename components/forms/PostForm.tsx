@@ -1,6 +1,4 @@
 "use client";
-import React, { useState } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,7 +21,7 @@ const formSchema = z.object({
 });
 
 export default function PostForm() {
-  
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,7 +54,7 @@ export default function PostForm() {
               </FormDescription>
               <FormMessage />
             </FormItem>
-            
+
           )}
         />
         <FormField
@@ -73,10 +71,13 @@ export default function PostForm() {
               </FormDescription>
               <FormMessage />
             </FormItem>
-            
+
           )}
         />
-        <Button className="bg-primary-500 w-40" type="submit">Submit</Button>
+        <div className="flex items-center gap-4 justify-end">
+          <Button className="shad-button_dark_4" type="submit">cancel</Button>
+          <Button className="shad-button_primary whitespace-nowrap" type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   );
