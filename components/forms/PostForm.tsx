@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
+import FileUploader from "../shared/FileUploader";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -74,6 +75,7 @@ export default function PostForm() {
 
           )}
         />
+        <FileUploader/>
         <div className="flex items-center gap-4 justify-end">
           <Button className="shad-button_dark_4" type="submit">cancel</Button>
           <Button className="shad-button_primary whitespace-nowrap" type="submit">Submit</Button>
