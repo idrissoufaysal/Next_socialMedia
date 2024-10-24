@@ -3,9 +3,9 @@ import React, { useCallback, useState } from 'react'
 import { FileWithPath, useDropzone } from 'react-dropzone'
 import { Button } from '../ui/button'
 
-type FileUploaderProps={
-    fieldChange:(FILES:File[])=>void;
-    mediaUrl:string;
+type FileUploaderProps = {
+    fieldChange: (FILES: File[]) => void;
+    mediaUrl: string;
 }
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
@@ -34,8 +34,16 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
             <input {...getInputProps()} />
             {
                 fileUrl ?
-                    (<div>
-
+                    (<div className='flex flex-1 w-full justify-center p-5 lg:p-10 flex-col' >
+                        <Image src={fileUrl}
+                            alt='image'
+                            height={80}
+                            width={60}
+                            className='file_uploader-img'
+                        />
+                        <p className='file_uploader-label'>
+                            click here to drag and drop or replace
+                        </p>
                     </div>) :
                     (<div className='file_uploader-box bg-dark-3'>
                         <Image

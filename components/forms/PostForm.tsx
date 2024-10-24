@@ -44,16 +44,14 @@ export default function PostForm({post}:any) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-w-5xl">
         <FormField
           control={form.control}
-          name="username"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label" >desccription</FormLabel>
               <FormControl>
                 <Textarea placeholder="shadcn" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
+              
               <FormMessage />
             </FormItem>
 
@@ -61,25 +59,7 @@ export default function PostForm({post}:any) {
         />
         <FormField
           control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label" >desccription</FormLabel>
-              <FormControl>
-                <Textarea placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="username"
+          name="file"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label" >Add photos</FormLabel>
