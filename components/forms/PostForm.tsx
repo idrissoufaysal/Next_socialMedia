@@ -21,7 +21,8 @@ const formSchema = z.object({
   }),
 });
 
-export default function PostForm() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function PostForm({post}:any) {
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -75,7 +76,28 @@ export default function PostForm() {
 
           )}
         />
-        <FileUploader/>
+
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="shad-form_label" >Add photos</FormLabel>
+              <FormControl>
+                <FileUploader
+                 fieldChange={field.onChange} 
+                 mediaUrl={post?.imageUrl}
+                 />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+
+          )}
+        />
+
         <div className="flex items-center gap-4 justify-end">
           <Button className="shad-button_dark_4" type="submit">cancel</Button>
           <Button className="shad-button_primary whitespace-nowrap" type="submit">Submit</Button>
